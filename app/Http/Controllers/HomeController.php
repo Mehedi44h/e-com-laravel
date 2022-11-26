@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\products;
+use App\Models\Cart;
+
 
 
 class HomeController extends Controller
 {
  public function index(){
-    return view('home.userpage');
+    $product= products::paginate(4);
+    return view('home.userpage',compact('product'));
  }
 
     
@@ -20,7 +24,52 @@ class HomeController extends Controller
         if ($usertype == '1') {
             return view('admin.home');
         } else {
-            return view('home.userpage');
+            $product = products::paginate(6);
+            return view('home.userpage', compact('product'));
+        }
+    }
+
+    public function show_details($id){
+            $product = products::find($id);
+        
+         return view('home.show_details',compact('product'));
+    }
+
+    public function add_cart(Request $request ,$id)
+    {
+        if(Auth::id())
+        {
+            $user=Auth::user();
+            $product=products::find($id);
+            
+            $cart=new cart; 
+            $cart->name=$user->name;
+            $cart->email = $user->email;
+            $cart->phone = $user->phone;
+            $cart->address = $user->address;
+            $cart->user_id = $user->id;
+            $cart->product_title = $product->title;
+            if($product->discount_price!=null)
+            {
+                $cart->price=$product->discount_price ;
+                
+            }
+            else{
+                $cart->price=$product->price; 
+            }
+            $cart->price = $product->price;
+            
+            $cart->image = $product->image;
+            $cart->Product_id = $product->id;
+            $cart->quantitiy = $request->quantity;
+            $cart->save();
+            return redirect()->back();
+
+
+
+        }
+        else{
+            return redirect('login');
         }
     }
 }
