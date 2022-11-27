@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-    <base href="/public">
+      <base href="/public">
       <!-- Basic -->
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,48 +26,59 @@
       <div class="hero_area">
          <!-- header section strats -->
          @include('home.header')
-         <!-- end header section -->
+      
+
         
-      </div>
-       <div class="col-sm-6 col-md-4 col-lg-4" >
-                  <div class="box">
-                     <div class="option_container" >
-                       
-                     </div>
-                     <div class="img-box" style="margin: auto;" >
-                        <img height="300px" width="300px" src="product_img/{{$product->image}}" alt="">
+      
+      <div class="col-sm-6 col-md-4 col-lg-3" style="margin: auto">
+                 
+                     <div class="img-box">
+                        <img height="300px" width="500px" src="product_img/{{$product->image}}" alt="">
                      </div>
                      <div class="detail-box">
                         <h5>
                            {{$product->title}}
                         </h5>
-                        @if ($product->discount_price!=null)
-                            <h6 style="color:green
-                            ">
-                          ${{$product->discount_price}}
+                        @if($product->discount_price!=null)
+                        <h6>
+                           ${{$product->discount_price}}
                         </h6>
-                        <h6 style="text-decoration:line-through; color:red;">
-                          ${{$product->price}}
+                        <h6 style="text-decoration:line-through;color:red;">
+                           ${{$product->price}}
                         </h6>
                         @else
-                        <h6>
-                          ${{$product->price}}
+                         <h6 style="color:green;">
+                           ${{$product->price}}
                         </h6>
-                        @endif
- <h6>Product description: {{   $product->description}}</h6> 
-   <br>
-    <h6>Product catagory: {{   $product->catagory}}</h6> 
+                       @endif
+                        <h6>product catagory: {{$product->catagory}}</h6>
+                        <h6>product description: {{$product->description}}</h6>
+                        <h6>product quantity: {{$product->quantity}}</h6>
 
-   <br>
-   <h6>Product quantity: {{   $product->quantity}}</h6> 
-   <br>
-  
+                        <form action="{{url('add_cart',$product->id)}} " method="POST">
+                           @csrf
+                           <div class="row">
+
+                              <div class="col-md-4">
+                           <input type="number" name="quantity" value="1" min="1">
+
+                              </div>
+
+                           <div class="col-md-4">
+                              <input type="submit" value="Add to cart">
+
+                           </div>
+
+                           </div>
+
+                          </form>
+ 
+                       
                      </div>
                   </div>
                </div>
-   
 
-      
+     
       <!-- footer start -->
      @include('home.footer')
       <!-- footer end -->

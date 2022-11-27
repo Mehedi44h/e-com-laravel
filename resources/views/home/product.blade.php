@@ -22,7 +22,7 @@
       <link href="css/responsive.css" rel="stylesheet" />
    </head>
    <body class="sub_page">
-      
+       
       <!-- product section -->
       <section class="product_section layout_padding">
          <div class="container">
@@ -30,39 +30,57 @@
                <h2>
                   Our <span>products</span>
                </h2>
+               
             </div>
             <div class="row">
-               @foreach ($product as $item)
+               @foreach ($product as $products)
                    <div class="col-sm-6 col-md-4 col-lg-3">
                   <div class="box">
                      <div class="option_container">
                         <div class="options">
-                           <a href="" class="option1">
-                           Men's Shirt
+                           <a href="{{url('product_details',$products->id)}}" class="option1">
+                           Product details
                            </a>
-                           <a href="" class="option2">
-                           Buy Now
-                           </a>
+                          
+
+                          <form action="{{url('add_cart',$products->id)}} " method="POST">
+                           @csrf
+                           <div class="row">
+
+                              <div class="col-md-4">
+                           <input type="number" name="quantity" value="1" min="1">
+
+                              </div>
+
+                           <div class="col-md-4">
+                              <input type="submit" value="Add to cart">
+
+                           </div>
+
+                           </div>
+
+                          </form>
                         </div>
                      </div>
                      <div class="img-box">
-                        <img src="product_img/{{$item->image}}" alt="">
+                        <img src="product_img/{{$products->image}}" alt="">
                      </div>
                      <div class="detail-box">
                         <h5>
-                           {{$item->title}}
+                           {{$products->title}}
                         </h5>
-                        @if($item->discount_price!=null)
+                        @if($products->discount_price!=null)
                         <h6>
-                           ${{$item->discount_price}}
+                           ${{$products->discount_price}}
                         </h6>
                         <h6 style="text-decoration:line-through;color:red;">
-                           ${{$item->price}}
+                           ${{$products->price}}
                         </h6>
                         @else
                          <h6 style="color:green;">
-                           ${{$item->price}}
+                           ${{$products->price}}
                         </h6>
+                       
                        @endif
                         
                        

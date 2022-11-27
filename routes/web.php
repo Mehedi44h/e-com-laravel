@@ -28,10 +28,21 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get('/show_cart', );
+
+
 Route::get('/redirect', [HomeController::class, 'redirect']);
-Route::get('/show_details/{id}', [HomeController::class, 'show_details']);
-// Route::get('/add_cart/{id}', [HomeController::class, 'add_cart']);
+Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
+// Route::get('/addto_cart/{id}', [HomeController::class, 'addto_cart']);
+Route::get('/show_cart', [HomeController::class, 'show_cart']);
+Route::get('/remove_cart/{id}', [HomeController::class, 'remove_cart']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+Route::get('/cash_order', [HomeController::class, 'cash_order']);
+Route::get('/stripe/{totalprice}', [HomeController::class, 'stripe']);
+Route::post('/stripe/{totalprice}', [HomeController::class, 'stripepost'])->name('stripe.post');
+
+
+
 
 
 
