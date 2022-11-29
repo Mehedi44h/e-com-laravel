@@ -42,6 +42,12 @@
 }
 .th_deg{
     background: gray;
+ border: 2px solid white;
+    
+}
+.td_deg{
+ border: 2px solid white;
+
 }
     </style>
   </head>
@@ -63,35 +69,49 @@
 
             <table class="table_deg">
                 <tr class="th_deg">
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Product_title</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Payment Status </th>
-                    <th>Delivery Status</th>
-                    <th>Image</th>
-                   
+                    <th class="td_deg">Name</th>
+                    <th class="td_deg">Email</th>
+                    <th class="td_deg">Address</th>
+                    <th class="td_deg">Phone</th>
+                    <th class="td_deg">Product_title</th>
+                    <th class="td_deg">Quantity</th>
+                    <th class="td_deg">Price</th>
+                    <th class="td_deg">Payment Status </th>
+                    <th class="td_deg">Delivery Status</th>
+                    <th class="td_deg">Image</th>
+                    <th class="td_deg">Status</th>
 
-                </tr>
+                  </tr>
+
                 @foreach ($order as $item)
-                    <tr>
-                    <td>{{$item->name}}</td>
-                    <td>{{$item->email}}</td>
-                    <td>{{$item->address}}</td>
-                    <td>{{$item->phone}}</td>
-                    <td>{{$item->product_title}}</td>
-                    <td>{{$item->quantity}}</td>
+                    <tr class="td_deg">
+                    <td class="td_deg">{{$item->name}}</td>
+                    <td class="td_deg">{{$item->email}}</td>
+                    <td class="td_deg">{{$item->address}}</td>
+                    <td class="td_deg">{{$item->phone}}</td>
+                    <td class="td_deg">{{$item->product_title}}</td>
+                    <td class="td_deg">{{$item->quantity}}</td>
 
-                    <td>{{$item->price}}</td>
+                    <td class="td_deg">{{$item->price}}</td>
 
-                     <td>{{$item->payment_status}}</td>
-                    <td>{{$item->deleviry_status}}</td>
-                    <td>
+                     <td class="td_deg">{{$item->payment_status}}</td>
+                    <td class="td_deg">{{$item->deleviry_status}}</td>
+
+                    <td class="td_deg">
                         
-                    <img src="/product_img/{{$item->image}}" alt="">
+                    <img height="100px" width="200px" src="/product_img/{{$item->image}}" alt="">
+                    </td>
+
+                    <td>
+                      @if($item->deleviry_status=='processing')
+                    <a class="btn btn-primary" href="{{url('update_delivery_status',$item->id)}}" onclick="return confirem('Are you sure to delivered this product')">Delevered</a>
+                         
+                              
+                          @else
+                          <p style="color: grey;"  >Delivered</p>
+
+                              
+                      @endif 
                     </td>
                     
 
