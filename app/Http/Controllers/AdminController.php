@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\catagory;
 use App\Models\Products;
+use App\Models\Order;
+
 
 
 class AdminController extends Controller
@@ -96,6 +98,11 @@ class AdminController extends Controller
 
         
         
+    }
+
+    public function order(){
+        $order=order::all();
+        return view('admin.order',compact('order'));
     }
     
 }
