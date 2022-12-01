@@ -28,10 +28,10 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/show_cart', );
+Route::get('/show_cart',);
 
 
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect'])->middleware('auth', 'verified');
 Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 // Route::get('/addto_cart/{id}', [HomeController::class, 'addto_cart']);
 Route::get('/show_cart', [HomeController::class, 'show_cart']);
@@ -57,3 +57,6 @@ Route::get('/update_product/{id}', [AdminController::class, 'update_product']);
 Route::post('/update_product_confirm/{id}', [AdminController::class, 'update_product_confirm']);
 Route::get('/order', [AdminController::class, 'order']);
 Route::get('/update_delivery_status/{id}', [AdminController::class, 'update_delivery_status']);
+Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
+Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
+Route::post('/send_user_email/{id}', [AdminController::class, 'send_user_email']);

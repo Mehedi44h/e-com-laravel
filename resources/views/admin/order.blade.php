@@ -80,6 +80,10 @@
                     <th class="td_deg">Delivery Status</th>
                     <th class="td_deg">Image</th>
                     <th class="td_deg">Status</th>
+                    <th class="td_deg">Print Pdf</th>
+                    <th class="td_deg">Send Email</th>
+
+
 
                   </tr>
 
@@ -112,6 +116,13 @@
 
                               
                       @endif 
+                    </td>
+
+                    <td class="td_deg">
+                      <a class="btn btn-danger btn-sm" href="{{url('print_pdf',$item->id)}}">Print PDF</a>
+                    </td>
+                    <td class="td_deg">
+                      <a class="btn btn-danger btn-sm" href="{{url('send_email',$item->id)}}">Send email</a>
                     </td>
                     
 
