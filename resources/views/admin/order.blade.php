@@ -67,6 +67,15 @@
           <div class="content-wrapper">
             <h1 class="title-deg">Orders</h1>
 
+            <div style="padding-bottom: 30px; padding-left:400px">
+              <form action="{{url('/search')}}" method="get">
+                @csrf
+                <input style="color: black;" type="text" name="search" value="{{$searchtxt}}" placeholder="Search">
+                <input class="btn btn-primary" type="submit" value="Search">
+
+              </form>
+            </div>
+
             <table class="table_deg">
                 <tr class="th_deg">
                     <th class="td_deg">Name</th>
@@ -87,7 +96,7 @@
 
                   </tr>
 
-                @foreach ($order as $item)
+                @forelse ($order as $item)
                     <tr class="td_deg">
                     <td class="td_deg">{{$item->name}}</td>
                     <td class="td_deg">{{$item->email}}</td>
@@ -102,34 +111,40 @@
                     <td class="td_deg">{{$item->deleviry_status}}</td>
 
                     <td class="td_deg">
-                        
-                    <img height="100px" width="200px" src="/product_img/{{$item->image}}" alt="">
+                      <img height="100px" width="200px" src="/product_img/{{$item->image}}" alt="">
                     </td>
 
                     <td>
                       @if($item->deleviry_status=='processing')
                     <a class="btn btn-primary" href="{{url('update_delivery_status',$item->id)}}" onclick="return confirem('Are you sure to delivered this product')">Delevered</a>
                          
-                              
-                          @else
-                          <p style="color: grey;"  >Delivered</p>
+                      @else
+                        <p style="color: grey;"  >Delivered</p>
 
-                              
-                      @endif 
+                        @endif 
                     </td>
 
                     <td class="td_deg">
                       <a class="btn btn-danger btn-sm" href="{{url('print_pdf',$item->id)}}">Print PDF</a>
                     </td>
+
                     <td class="td_deg">
                       <a class="btn btn-danger btn-sm" href="{{url('send_email',$item->id)}}">Send email</a>
                     </td>
                     
-
-                    
-                    
-                  </tr>
-                @endforeach
+               </tr>
+               @empty
+               
+        <div >
+          <tr >
+            <td  colspan="20">
+              No Data Found
+            </td>
+          </tr>
+        </div>
+                   
+               
+                @endforelse
                 
             </table>
           </div>

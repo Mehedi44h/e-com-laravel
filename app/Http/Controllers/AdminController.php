@@ -9,8 +9,6 @@ use App\Models\Order;
 use App\Notifications\SendEmailNotification;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Support\Facades\Notification;
-use user;
-use hash;
 
 
 
@@ -152,5 +150,22 @@ class AdminController extends Controller
         ];
         Notification::send($order, new SendEmailNotification($details));
         return redirect()->back();
+    }
+
+
+    public function searchdata(Request $request){
+
+        
+        $searchtxt= $request['search']?? "";
+        if($searchtxt!=""){
+            $order =order::where('name', 'LIKE', "%$searchtxt%")->orwhere('email', 'LIKE', "%$searchtxt%")->orwhere('phone', 'LIKE', "%$searchtxt%")->get();
+            
+        }
+        else{
+            $order=order::all();
+        }
+        $data=compact('order','searchtxt');
+        return view('admin.order')->with($data);
+        
     }
 }
