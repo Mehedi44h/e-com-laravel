@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\products;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Commetn;
+use App\Models\Reply;
 use Stripe;
 use  Illuminate\Support\Facades\Session;
 
@@ -22,7 +24,11 @@ class HomeController extends Controller
     public function index()
     {
         $product = products::paginate(4);
-        return view('home.userpage', compact('product'));
+        $comment = Commetn::orderby('id', 'desc')->get();
+
+        $reply = Reply::all();
+
+        return view('home.userpage', compact('product','comment','reply'));
     }
 
 
@@ -48,7 +54,11 @@ class HomeController extends Controller
         } 
         else {
             $product = products::paginate(6);
-            return view('home.userpage', compact('product'));
+            $comment = Commetn::orderby('id','desc')->get();
+            $reply = Reply::all();
+
+
+            return view('home.userpage', compact('product','comment','reply'));
         }
     }
 
@@ -205,5 +215,50 @@ public function cancel_order($id){
     $order->save();
     return redirect()->back();
 }
+
+public function add_comment(Request $request){
+    if(Auth::id())
+    {
+       
+        $comment=new commetn;
+        $comment->name=Auth::user()->name;
+        $comment->user_id = Auth::user()->id;
+        $comment->comment = $request->comment;
+        $comment->save();
+        return redirect()->back();
+
+        
+    }
+    else
+    {
     
+        return redirect('login');
+    }
+}
+
+public function add_reply(Request $request){
+    
+   if(Auth::id()){
+            $reply=new reply();
+        
+            $reply->name = Auth::user()->name;
+            $reply->comment_id = $request->comID;
+            $reply->reply = $request->reply;
+
+           $reply->user_id = Auth::user()->id;
+            $reply->save();
+            return redirect()->back();
+
+
+    
+    
+}
+else{
+    
+    return redirect('login');
+}
+    
+}
+
+
 }
