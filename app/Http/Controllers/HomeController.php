@@ -62,9 +62,11 @@ class HomeController extends Controller
             $product = products::paginate(6);
             $comment = Commetn::orderby('id','desc')->get();
             $reply = Reply::all();
+            $user=Auth()->user();
+            $count=Cart::where('phone',$user->phone)->count();
 
 
-            return view('home.userpage', compact('product','comment','reply'));
+            return view('home.userpage', compact('product','comment','reply', 'count'));
         }
     }
 
@@ -142,8 +144,10 @@ class HomeController extends Controller
         if (Auth::id()) {
             $id = Auth::user()->id;
             $cart = Cart::where('user_id', '=', $id)->get();
+            $user = Auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
             
-            return view('home.show_cart', compact('cart'));
+            return view('home.show_cart', compact('cart','count'));
         } else {
             return redirect('login');
         }
