@@ -238,11 +238,14 @@ class HomeController extends Controller
     }
 
 public function show_order(){
+    
    if(Auth::id()){
     $user=Auth::user();
     $userid=$user->id;
     $order=Order::where('user_id','=',$userid)->get();
-         return view('home.order',compact('order'));
+            $user = Auth()->user();
+            $count = Cart::where('phone', $user->phone)->count();
+         return view('home.order',compact('order','count'));
 
         }
         else{
