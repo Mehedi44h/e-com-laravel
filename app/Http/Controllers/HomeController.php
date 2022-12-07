@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -11,8 +10,15 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Commetn;
 use App\Models\Reply;
+
 use Stripe;
 use  Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
+
+
+
+
+
 
 
 
@@ -88,7 +94,11 @@ class HomeController extends Controller
                     $cart->price = $product->price *  $cart->quantitiy;
                 }
                             $cart->save();
-                            return redirect()->back()->with('message','Product added successfully');
+
+                Alert::success('Product Added Successfull', 'you have added product to the cart');
+
+                            return redirect()->back();
+                            // ->with('message','Product added successfully')
                 }
             else{
                 $cart = new cart;
@@ -112,7 +122,9 @@ class HomeController extends Controller
 
 
                 $cart->save();
-                return redirect()->back()->with('message', 'Product added successfully');
+                Alert::success('Product Added Successfull','you have added product to the cart');
+                return redirect()->back();
+                // ->with('message', 'Product added successfully')
 
                 
                 }
@@ -130,6 +142,7 @@ class HomeController extends Controller
         if (Auth::id()) {
             $id = Auth::user()->id;
             $cart = Cart::where('user_id', '=', $id)->get();
+            
             return view('home.show_cart', compact('cart'));
         } else {
             return redirect('login');
@@ -139,6 +152,8 @@ class HomeController extends Controller
     {
         $cart = Cart::find($id);
         $cart->delete();
+        Alert::success('Product deleted Successfull', 'you have added product to the cart');
+        
         return redirect()->back();
     }
 
