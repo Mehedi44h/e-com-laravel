@@ -44,6 +44,12 @@ Route::get('/show_order', [HomeController::class, 'show_order']);
 Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
 Route::post('/add_comment', [HomeController::class, 'add_comment']);
 Route::post('/add_reply', [HomeController::class, 'add_reply']);
+Route::get('/product_search', [HomeController::class, 'product_search']);
+Route::get('/products', [HomeController::class, 'products']);
+Route::get('/search_product', [HomeController::class, 'search_product']);
+
+
+
 
 
 
@@ -55,7 +61,7 @@ Route::post('/add_reply', [HomeController::class, 'add_reply']);
 
 
 Route::get('/view_catagory', [AdminController::class, 'view_catagory']);
-Route::post('/add_catagory', [AdminController::class, 'add_catagory']);
+Route::get('/add_catagory', [AdminController::class, 'add_catagory']);
 Route::get('/delete_catagory/{id}', [AdminController::class, 'delete_catagory']);
 Route::get('/view_product', [AdminController::class, 'view_product']);
 Route::post('/add_product', [AdminController::class, 'add_product']);

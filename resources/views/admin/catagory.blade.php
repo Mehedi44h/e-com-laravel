@@ -68,7 +68,7 @@
 
              <div class="text-center pt-5">
                 <h1 class="fonts">Add catagory</h1>
-                <form action="{{url('/add_catagory') }}" method="POST" >
+                <form action="{{url('/add_catagory') }}" method="GET" >
                   @csrf
                      <input type="text" class="inpute_color" name="catagory" id="catagory" placeholder="write catagory name">
                     <input type="submit" class="btn btn-primary " name="submit" id="submit" value="Add to Catagory">

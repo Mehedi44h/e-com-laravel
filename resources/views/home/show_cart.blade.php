@@ -13,13 +13,13 @@
       <link rel="shortcut icon" href="images/favicon.png" type="">
       <title>Laravel-Ecommerce project</title>
       <!-- bootstrap core css -->
-      <link rel="stylesheet" type="text/css" href="home/css/bootstrap.css" />
+      <link rel="stylesheet" type="text/css" href="{{asset('home/css/bootstrap.css')}}" />
       <!-- font awesome style -->
-      <link href="home/css/font-awesome.min.css" rel="stylesheet" />
+      <link href="{{asset('home/css/font-awesome.min.css')}}" rel="stylesheet" />
       <!-- Custom styles for this template -->
-      <link href="home/css/style.css" rel="stylesheet" />
+      <link href="{{asset('home/css/style.css')}}" rel="stylesheet" />
       <!-- responsive style -->
-      <link href="home/css/responsive.css" rel="stylesheet" />
+      <link href="{{asset('home/css/responsive.css')}}" rel="stylesheet" />
       <style type="text/css">
 .center{
     margin: auto;
@@ -75,10 +75,10 @@ table,th,td{
             <tr>
             <td>{{$cart->product_title}}</td>
             <td>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <input type="number" name="quantity" value="1" min="1">
 
-                </div>
+                </div> --}}
             {{$cart->quantitiy}}
             </td>
             <td>${{$cart->price}}</td>
